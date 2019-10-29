@@ -1,9 +1,7 @@
 fun main() {
-    var Hives = mutableListOf<Hive>()
-    Hives.add(newHive())
-    Hives.add(newHive())
-    Hives.forEach {hive -> describeHive(hive)}
+    mainMenu()
 }
+var Hives = mutableListOf<Hive>()
 
 class Hive(var type: String, var name: String, var floors: Int = if (type == "horizontal")(1)else(0)){
     var Boxes = mutableListOf<Box>()
@@ -22,11 +20,14 @@ fun oneOrMany(number: Int, word: String) = if (number != 1) "${word}s" else word
 fun newHive(): Hive{
     println("What type of hive?")
     var type = readLine().toString()
+
     println("How do you name it?")
     var name = readLine().toString()
+    val h = Hive(type,name)
+
     println("How many frames?")
     var frames = readLine().toString().toInt()
-    val h = Hive(type,name)
+
     if (type == "vertical"){
         println("How many floors?")
         var floors  =readLine().toString().toInt()
@@ -41,5 +42,14 @@ fun newHive(): Hive{
 }
 
 fun mainMenu(){
-    
+    print("1. Add new Hive  ")
+    println("2. Show my hives")
+    when (readLine().toString().toInt()){
+        1 -> {Hives.add(newHive())
+            println("")
+            mainMenu()}
+        2 -> {Hives.forEach{hive -> describeHive(hive)}
+            println("")
+           mainMenu()}
+    }
 }
